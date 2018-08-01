@@ -2,22 +2,16 @@ package com.minhtv.newsfeedrecycler;
 
 import android.app.LoaderManager;
 import android.content.Context;
-import android.content.Intent;
 import android.content.Loader;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.TextView;
-
-import com.minhtv.newsfeedrecycler.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +22,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
      * Adapter for the list of earthquakes
      */
     private NewsAdapter mAdapter;
-    private RecyclerView recList;
 
     /**
      * Constant value for the NewsFeed loader ID. We can choose any integer.
@@ -53,18 +46,16 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         // Find a reference to the {@link ListView} in the layout
         RecyclerView NewsFeedListView = (RecyclerView) findViewById(R.id.list);
+        GridLayoutManager mGridLayoutManager = new GridLayoutManager(this, 1);
+        NewsFeedListView.setLayoutManager(mGridLayoutManager);
         NewsFeedListView.setHasFixedSize(true);
-        LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(this);
-        NewsFeedListView.setLayoutManager(mLinearLayoutManager);
-
+        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing);
+        NewsFeedListView.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
         mEmptyStateTextView = (TextView) findViewById(R.id.empty_view);
-
-        NewsFeedListView.setEmptyView(mEmptyStateTextView);
 
         // Create a new adapter that takes an empty list of earthquakes as input
         mAdapter = new NewsAdapter(new ArrayList<News>(), this);
-        recList.setAdapter(mAdapter);
-
+        NewsFeedListView.setAdapter(mAdapter);
 
         // Set the adapter on the {@link ListView}
         // so the list can be populated in the user interface
@@ -97,7 +88,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         }
     }
 
-
     //Loader methods
     @Override
     public Loader<List<News>> onCreateLoader(int id, Bundle args) {
@@ -111,19 +101,18 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         // Hide loading indicator because the data has been loaded
         View loadingIndicator = findViewById(R.id.loading_spinner);
         loadingIndicator.setVisibility(View.GONE);
-
-        // Set empty state text to display "No News Found."
-        mEmptyStateTextView.setText(R.string.no_news);
-
         Log.i(LOG_TAG, "Test: onLoadFinished called...");
 
-        // Clear the adapter of previous earthquake data
-        mAdapter.clear();
+        // Clear the adapter of previous news data
+        mAdapter.clear(news);
 
         // If there is a valid list of {@link News}s, then add them to the adapter's
         // data set. This will trigger the ListView to update.
         if (news != null && !news.isEmpty()) {
-            mAdapter.addAll();
+            mAdapter.addAll(news);
+        } else {
+            // Set empty state text to display "No News Found."
+            mEmptyStateTextView.setText(R.string.no_news);
         }
     }
 
@@ -131,10 +120,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public void onLoaderReset(Loader<List<News>> loader) {
         Log.i(LOG_TAG, "Test: onLoadReset called...");
         // Loader reset, so we can clear out our existing data.
-        mAdapter.clear();
     }
-
-
 }
 
 

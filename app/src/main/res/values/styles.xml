@@ -9,8 +9,8 @@
     </style>
 
     <style name="newsTitle">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
         <item name="android:ellipsize">end</item>
         <item name="android:maxLines">2</item>
         <item name="android:textColor">@color/textColorTitle</item>
@@ -18,8 +18,8 @@
     </style>
 
     <style name="newscategorie">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
         <item name="android:maxLines">1</item>
         <item name="android:paddingTop">8dp</item>
         <item name="android:textColor">@color/textColorCategorie</item>
@@ -27,8 +27,8 @@
     </style>
 
     <style name="authorstyle">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
         <item name="android:fontFamily">italic</item>
         <item name="android:maxLines">1</item>
         <item name="android:textColor">@color/textColorauthor</item>
@@ -36,8 +36,8 @@
     </style>
 
     <style name="datestyle">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
         <item name="android:layout_gravity">end</item>
         <item name="android:textColor">@color/textColordate</item>
         <item name="android:textSize">@dimen/datesize</item>

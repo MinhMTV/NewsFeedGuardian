@@ -44,6 +44,7 @@ public class News {
         this.date = date;
         this.url = url;
     }
+
     /**
      * Returns the news title.
      */

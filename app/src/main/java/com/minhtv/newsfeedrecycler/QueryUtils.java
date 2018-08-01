@@ -3,8 +3,6 @@ package com.minhtv.newsfeedrecycler;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.minhtv.newsfeedrecycler.News;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

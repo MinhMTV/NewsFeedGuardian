@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">NewsFeed</string>
+    <string name="app_name">The Guardian</string>
     <string name="sorry">Sorry, there was a problem with receiving the data from Guardian`s Server. Close the app and try again</string>
     <string name="title">Long placeholder location that should wrap to more than 2 lines of text</string>
     <string name="author">written by:</string>
