@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="textTitlesize">16sp</dimen>
+    <dimen name="datesize">12sp</dimen>
+    <dimen name="categoriesize">12sp</dimen>
+</resources>
