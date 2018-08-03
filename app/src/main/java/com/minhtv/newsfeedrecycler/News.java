@@ -4,28 +4,27 @@ public class News {
     /**
      * Webtitle of News
      */
-    private String title;
+    private String mtitle;
 
     /**
      * Section of the News
      */
-    private String section;
-
-
-    /**
-     * time of the News
-     */
-    private String author;
+    private String msection;
 
     /**
      * time of the News
      */
-    private String date;
+    private String mauthor;
+
+    /**
+     * time of the News
+     */
+    private String mdate;
 
     /**
      * WebURL of the News
      */
-    private String url;
+    private String murl;
 
     /**
      * Constructs a new EducationNews object.
@@ -38,45 +37,45 @@ public class News {
      */
 
     public News(String title, String section, String author, String date, String url) {
-        this.title = title;
-        this.section = section;
-        this.author = author;
-        this.date = date;
-        this.url = url;
+        mtitle = title;
+        msection = section;
+        mauthor = author;
+        mdate = date;
+        murl = url;
     }
 
     /**
      * Returns the news title.
      */
     public String getNewsTitle() {
-        return title;
+        return mtitle;
     }
 
     /**
      * Returns the news category.
      */
     public String getNewsCategory() {
-        return section;
+        return msection;
     }
 
     /**
      * Returns the name of author.
      */
     public String getNewsAuthor() {
-        return author;
+        return mauthor;
     }
 
     /**
      * Returns publishing date.
      */
     public String getNewsDate() {
-        return date;
+        return mdate;
     }
 
     /**
      * Returns the news URL.
      */
     public String getUrl() {
-        return url;
+        return murl;
     }
 }

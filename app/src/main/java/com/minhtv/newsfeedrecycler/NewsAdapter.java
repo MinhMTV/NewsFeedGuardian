@@ -3,6 +3,7 @@ package com.minhtv.newsfeedrecycler;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -72,7 +73,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         // Set the view to fade in
         setAnimation(viewHolder.itemView, position);
 
-        viewHolder.linearlayout.setOnClickListener(new View.OnClickListener() {
+        viewHolder.cardview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 News currentNews = news_item.get(position);
@@ -99,7 +100,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         public TextView author;
         public TextView date;
         public TextView time;
-        public View linearlayout;
+        public View cardview;
 
         public ViewHolder(View itemLayoutView) {
             super(itemLayoutView);
@@ -108,10 +109,9 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
             author = (TextView) itemLayoutView.findViewById(R.id.author);
             date = (TextView) itemLayoutView.findViewById(R.id.date);
             time = (TextView) itemLayoutView.findViewById(R.id.time);
-            linearlayout = (LinearLayout) itemLayoutView.findViewById(R.id.linearlayout);
+            cardview = (CardView) itemLayoutView.findViewById(R.id.card_view);
         }
     }
-
 
     // Return the size of your itemsData (invoked by the layout manager)
     @Override

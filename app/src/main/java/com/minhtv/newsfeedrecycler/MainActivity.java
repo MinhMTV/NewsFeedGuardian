@@ -2,14 +2,20 @@ package com.minhtv.newsfeedrecycler;
 
 import android.app.LoaderManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -31,13 +37,14 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     public static final String LOG_TAG = MainActivity.class.getName();
 
-    private static final String GUARDIAN_JSON = "http://content.guardianapis.com/search?order-by=newest&show-tags=contributor&page-size=20&api-key=5d306e31-6b06-4795-970a-d26408ed4497";
-
+    private static final String GUARDIAN_JSON = "http://content.guardianapis.com/search?";
     /**
      * TextView that is displayed when the list is empty
      */
     private TextView mEmptyStateTextView;
 
+
+    //order-by=newest&show-tags=contributor&page-size=20&api-key=
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,13 +95,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         }
     }
 
-    //Loader methods
-    @Override
-    public Loader<List<News>> onCreateLoader(int id, Bundle args) {
-        // Create a new loader for the given URL
-        return new NewsLoader(this, GUARDIAN_JSON);
-    }
-
     @Override
     public void onLoadFinished
             (Loader<List<News>> loader, List<News> news) {
@@ -120,6 +120,78 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public void onLoaderReset(Loader<List<News>> loader) {
         Log.i(LOG_TAG, "Test: onLoadReset called...");
         // Loader reset, so we can clear out our existing data.
+    }
+
+    @Override
+    // This method initialize the contents of the Activity's options menu.
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the Options Menu we specified in XML
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    // onCreateLoader instantiates and returns a new Loader for the given ID
+    public Loader<List<News>> onCreateLoader(int i, Bundle bundle) {
+
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        //  getString retrieves a String value from the preferences. The second parameter is the default value for this preference.
+        String orderBy = sharedPrefs.getString("order-by",
+                getString(R.string.settings_order_by_default));
+
+        // So i am setting the first String to "order-by" because when i use getString(R.string.settings_order_by_key, the getString returns a wrong String and
+        // instead of passing "relevance" the String "orderBy" will get the String business   ...and i dont know how to fix it.
+
+        Log.i(LOG_TAG, "this URL is " + orderBy);
+
+        String section = sharedPrefs.getString(
+                getString(R.string.settings_section_key),
+                getString(R.string.settings_section_default));
+
+
+        String itemNumber = sharedPrefs.getString(
+                getString(R.string.settings_item_number_key),
+                getString(R.string.settings_item_number_default));
+
+        String contributor = sharedPrefs.getString(
+                getString(R.string.contributor_key),
+                getString(R.string.contributor_key));
+
+        // parse breaks apart the URI string that's passed into its parameter
+        Uri baseUri = Uri.parse(GUARDIAN_JSON);
+
+        // buildUpon prepares the baseUri that we just parsed so we can add query parameters to it
+        Uri.Builder uriBuilder = baseUri.buildUpon();
+
+        Log.v(LOG_TAG, "url " + uriBuilder.toString());
+
+        // Append query parameter and its value.
+        uriBuilder.appendQueryParameter("order-by", orderBy);
+        uriBuilder.appendQueryParameter("section", section);
+        uriBuilder.appendQueryParameter("page-size", itemNumber);
+        uriBuilder.appendQueryParameter("show-tags", contributor);
+
+        String url = uriBuilder.toString() + "&api-key=";
+        String apiKey = BuildConfig.THE_GUARDIAN_API_KEY;
+        String finalurl = url + apiKey;
+
+        Log.v(LOG_TAG, "final url is " + finalurl);
+
+        // Return the completed uri `http://content.guardianapis.com/search?order-by=relevance&section=football&page-size=20&api-key=5d306e31-6b06-4795-970a-d26408ed4497
+        return new NewsLoader(this, finalurl);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            Intent settingsIntent = new Intent(this, SettingsActivity.class);
+            startActivity(settingsIntent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
 

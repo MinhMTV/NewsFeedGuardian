@@ -8,4 +8,64 @@
     <string name="time">3:00 PM</string>
     <string name="no_internet_connection">No internet connection. Please reconnect!</string>
     <string name="no_news">No news found.</string>
+
+    <string name="settings_title">News Settings</string>
+    <string name="settings_menu_item">Settings</string>
+
+
+
+
+    <string name="settings_order_by_key">order_by</string>
+    <string name="settings_order_by_label">Order By</string>
+    <string name="settings_order_by_default" translatable="false">@string/settings_order_by_relevance_value</string>
+
+    <string name="settings_section_key">section</string>
+    <string name="settings_sections_label">Section</string>
+    <string name="settings_section_default" translatable="false">@string/settings_technology_value</string>
+
+    <!-- Label for the items thats gets displayed in the List -->
+    <string name="settings_item_number_default">20</string>
+    <string name="settings_item_number_key">item number</string>
+    <string name="settings_item_number_label">News (1-100)</string>
+
+    <!-- Label for order-by relevance option [CHAR LIMIT=20] -->
+    <string name="settings_order_by_relevance_label">Relevance</string>
+    <string name="settings_order_by_relevance_value" translatable="false">relevance</string>
+
+    <!-- Label for order-by newest option [CHAR LIMIT=20] -->
+    <string name="settings_order_by_newest_label">Newest</string>
+    <string name="settings_order_by_newest_value" translatable="false">newest</string>
+
+    <!-- Label for order-by Oldest option [CHAR LIMIT=20] -->
+    <string name="settings_order_by_oldest_label">Oldest</string>
+    <string name="settings_order_by_oldest_value" translatable="false">oldest</string>
+
+    <!-- Label for sections [CHAR LIMIT=20] -->
+    <string name="settings_business_labels">Business</string>
+    <string name="settings_education_labels">Education</string>
+    <string name="settings_environment_labels">Environment</string>
+    <string name="settings_fashion_labels">Fashion</string>
+    <string name="settings_film_labels">Film</string>
+    <string name="settings_money_labels">Money</string>
+    <string name="settings_sport_labels">Sport</string>
+    <string name="settings_politics_labels">Politics</string>
+    <string name="settings_technology_labels">Technology</string>
+    <string name="settings_weather_labels">Weather</string>
+    <string name="settings_world_labels">World</string>
+
+    <!-- Value for sections [CHAR LIMIT=20] -->
+    <string name="settings_technology_value" translatable="false">technology</string>
+     <string name="settings_business_value" translatable="false">business</string>
+     <string name="settings_education_value" translatable="false">education</string>
+     <string name="settings_environment_value" translatable="false">environment</string>
+     <string name="settings_fashion_value" translatable="false">fashion</string>
+     <string name="settings_film_value" translatable="false">film</string>
+     <string name="settings_money_value" translatable="false">money</string>
+     <string name="settings_sport_value" translatable="false">sport</string>
+     <string name="settings_politics_value" translatable="false">politics</string>
+     <string name="settings_weather_value" translatable="false">weather</string>
+     <string name="settings_world_value" translatable="false">world</string>
+
+
+     <string name="contributor_key">contributor</string>
 </resources>

@@ -23,9 +23,10 @@ public class QueryUtils {
      * Tag for the log messages
      */
     public static final String LOG_TAG = QueryUtils.class.getSimpleName();
+    public static final int  READ_TIMEOUT = 10000;
+    public static final int CONNECT_TIMEOUT = 15000;
 
     /** Sample JSON response for a USGS query */
-
 
     /**
      * Create a private constructor because no one should ever create a {@link QueryUtils} object.
@@ -91,14 +92,14 @@ public class QueryUtils {
         InputStream inputStream = null;
         try {
             urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setReadTimeout(10000 /* milliseconds */);
-            urlConnection.setConnectTimeout(15000 /* milliseconds */);
+            urlConnection.setReadTimeout(READ_TIMEOUT /* milliseconds */);
+            urlConnection.setConnectTimeout(CONNECT_TIMEOUT /* milliseconds */);
             urlConnection.setRequestMethod("GET");
             urlConnection.connect();
 
             // If the request was successful (response code 200),
             // then read the input stream and parse the response.
-            if (urlConnection.getResponseCode() == 200) {
+            if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK /* 200 milliseconds */) {
                 inputStream = urlConnection.getInputStream();
                 jsonResponse = readFromStream(inputStream);
             } else {
@@ -160,19 +161,20 @@ public class QueryUtils {
                 JSONObject currentNews = newsArray.getJSONObject(i);
 
                 // Extract the value for the key called "section"
-                String newsSection = currentNews.getString("sectionName");
+                String newsSection = currentNews.optString("sectionName");
+                //use optString to avoid NullPointException if key is empty
 
                 // Extract the article name for the key called "webTitle"
-                String newsTitle = currentNews.getString("webTitle");
+                String newsTitle = currentNews.optString("webTitle");
 
                 // Extract the value for the key called "webUrl"
-                String newsUrl = currentNews.getString("webUrl");
+                String newsUrl = currentNews.optString("webUrl");
 
                 // Check if newsDate exist and than extract the date for the key called "webPublicationDate"
                 String newsDate = "N/A";
 
                 if (currentNews.has("webPublicationDate")) {
-                    newsDate = currentNews.getString("webPublicationDate");
+                    newsDate = currentNews.optString("webPublicationDate");
                 }
 
                 //Extract the JSONArray associated with the key called "tags",
@@ -186,7 +188,7 @@ public class QueryUtils {
                 if (tagsLength == 1) {
                     // Create a JSONObject for author
                     JSONObject currentNewsAuthor = currentNewsAuthorArray.getJSONObject(0);
-                    String newsAuthor1 = currentNewsAuthor.getString("webTitle");
+                    String newsAuthor1 = currentNewsAuthor.optString("webTitle");
                     newsAuthor = "written by: " + newsAuthor1;
 
                 }
